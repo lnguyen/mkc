@@ -1,0 +1,44 @@
+%p
+  %b
+    = t("activerecord.attributes.user.username", :default => t("activerecord.labels.username", :default => "Username"))
+    \:
+  = @user.username
+%p
+  %b
+    Communities 
+- @user.communities.each do |community| 
+  %p
+    %b
+      = link_to community.name, community_path(community)    
+%p  
+  %b
+    Friends
+- @user.friends.each do |friend|
+  = link_to friend.username, friend 
+  - if current_user == @user
+    = link_to "Unfriend", {:controller => "friendship", :action => "delete", :id => friend.id} 
+  %br
+- if current_user == @user
+  %p
+    %b
+      Pending Friends
+  - @user.pending_friends.each do |friend|
+    = link_to friend.username, friend
+    = link_to "Cancel", {:controller => "friendship", :action => "cancel", :id => friend.id } 
+    %br
+
+  %p
+    %b 
+      Requested Friends
+  - @user.requested_friends.each do |friend|
+    = link_to friend.username, friend 
+    = link_to "Accept", {:controller => "friendship", :action => "accept", :id => friend.id}
+    |
+    = link_to "Decline", {:controller => "friendship", :action => "decline", :id => friend.id}
+            
+               
+%br
+- unless Friendship.exists?(current_user,@user) or current_user == @user
+  = link_to "Request friendship with #{@user.username}.", {:controller => "friendship", :action => "create", :id => @user.id}
+  
+    

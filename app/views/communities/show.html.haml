@@ -1,0 +1,78 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", communities_path
+      - if user_signed_in?
+        %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_community_path
+      %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", community_path
+  .content
+    .inner
+      %p
+        %b
+          = t("activerecord.attributes.community.name", :default => t("activerecord.labels.name", :default => "Name"))
+          \:
+        = @community.name    
+      %p
+        %b
+          = t("activerecord.attributes.community.description", :default => t("activerecord.labels.description", :default => "Description"))
+          \:
+        = @community.description   
+      %p
+        %b
+          = t("activerecord.attributes.community.region", :default => t("activerecord.labels.region", :default => "Region"))
+          \:
+        = @community.region
+      %p
+        %b
+          = t("activerecord.attributes.community.code", :default => t("activerecord.labels.code", :default => "Community Code"))
+          \:
+        = @community.code
+      %p
+        %b
+          = t("activerecord.attributes.community.race_type", :default => t("activerecord.labels.race_type", :default => "Race type"))
+          \:
+        = @community.race_type
+      %p
+        %b
+          = t("activerecord.attributes.community.items_type", :default => t("activerecord.labels.items_type", :default => "Items type"))
+          \:
+        = @community.items_type 
+      %p
+        %b
+          = t("activerecord.attributes.user.username", :default => t("activerecord.labels.user", :default => "Owner"))
+          \: 
+        - if !@community.user.nil?
+          = @community.user.username   
+      %p
+        %b
+          = t("activerecord.attributes.community.members", :default => t("activerecord.labels.user", :default => "Members"))
+          \:
+        - @community.members.each do |member|
+          = link_to member.username, member
+          , 
+      %p
+        %b
+          Status:
+        = @community.view
+        %hr     
+        - @community.comments.each do |comment|
+          %p  
+            = comment.content
+            %br  
+            Created on
+            = comment.created_at  
+            by
+            = comment.username
+        - if user_signed_in?
+          = form_for :comment, :url => comments_path, :html => { :class => :form } do |f|
+            = render :partial => "comments/form", :locals => {:f => f}                                
+      .wat-cf
+        - if user_signed_in? 
+          - if @community.is_member? current_user 
+            = link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Leave"), leave_path(:id => @community.id)
+          - else
+            = link_to image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default=> "Save")}") + " " + t("web-app-theme.save", :default=> "Join"), join_path(:id => @community.id)
+          - if current_user == @community.user || current_user.admin?
+            = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_community_path(@community), :class => "button"
+            = link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), community_path(@community), :method => :delete, :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+- content_for :sidebar, render(:partial => 'sidebar')

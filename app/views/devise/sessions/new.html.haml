@@ -1,0 +1,9 @@
+%h1 Mario Kart Communities
+.block#block-login
+  %h2 Sign in
+  .content.login
+    .flash
+      - flash.each do |type, message|
+        %div{ :class => "message #{type}" }
+          %p= message
+    = render :partial => "devise/shared/links"

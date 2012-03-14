@@ -1,0 +1,37 @@
+          users_sign_out GET    /users/sign_out(.:format)       {:controller=>"devise/sessions", :action=>"destroy"}
+        new_user_session GET    /users/sign_in(.:format)        {:action=>"new", :controller=>"devise/sessions"}
+            user_session POST   /users/sign_in(.:format)        {:action=>"create", :controller=>"devise/sessions"}
+    destroy_user_session DELETE /users/sign_out(.:format)       {:action=>"destroy", :controller=>"devise/sessions"}
+           user_password POST   /users/password(.:format)       {:action=>"create", :controller=>"devise/passwords"}
+       new_user_password GET    /users/password/new(.:format)   {:action=>"new", :controller=>"devise/passwords"}
+      edit_user_password GET    /users/password/edit(.:format)  {:action=>"edit", :controller=>"devise/passwords"}
+                         PUT    /users/password(.:format)       {:action=>"update", :controller=>"devise/passwords"}
+cancel_user_registration GET    /users/cancel(.:format)         {:action=>"cancel", :controller=>"devise/registrations"}
+       user_registration POST   /users(.:format)                {:action=>"create", :controller=>"devise/registrations"}
+   new_user_registration GET    /users/sign_up(.:format)        {:action=>"new", :controller=>"devise/registrations"}
+  edit_user_registration GET    /users/edit(.:format)           {:action=>"edit", :controller=>"devise/registrations"}
+                         PUT    /users(.:format)                {:action=>"update", :controller=>"devise/registrations"}
+                         DELETE /users(.:format)                {:action=>"destroy", :controller=>"devise/registrations"}
+                comments GET    /comments(.:format)             {:action=>"index", :controller=>"comments"}
+                         POST   /comments(.:format)             {:action=>"create", :controller=>"comments"}
+             new_comment GET    /comments/new(.:format)         {:action=>"new", :controller=>"comments"}
+            edit_comment GET    /comments/:id/edit(.:format)    {:action=>"edit", :controller=>"comments"}
+                 comment GET    /comments/:id(.:format)         {:action=>"show", :controller=>"comments"}
+                         PUT    /comments/:id(.:format)         {:action=>"update", :controller=>"comments"}
+                         DELETE /comments/:id(.:format)         {:action=>"destroy", :controller=>"comments"}
+                searches GET    /searches(.:format)             {:action=>"index", :controller=>"searches"}
+                         POST   /searches(.:format)             {:action=>"create", :controller=>"searches"}
+              new_search GET    /searches/new(.:format)         {:action=>"new", :controller=>"searches"}
+             edit_search GET    /searches/:id/edit(.:format)    {:action=>"edit", :controller=>"searches"}
+                  search GET    /searches/:id(.:format)         {:action=>"show", :controller=>"searches"}
+                         PUT    /searches/:id(.:format)         {:action=>"update", :controller=>"searches"}
+                         DELETE /searches/:id(.:format)         {:action=>"destroy", :controller=>"searches"}
+             communities GET    /communities(.:format)          {:action=>"index", :controller=>"communities"}
+                         POST   /communities(.:format)          {:action=>"create", :controller=>"communities"}
+           new_community GET    /communities/new(.:format)      {:action=>"new", :controller=>"communities"}
+          edit_community GET    /communities/:id/edit(.:format) {:action=>"edit", :controller=>"communities"}
+               community GET    /communities/:id(.:format)      {:action=>"show", :controller=>"communities"}
+                         PUT    /communities/:id(.:format)      {:action=>"update", :controller=>"communities"}
+                         DELETE /communities/:id(.:format)      {:action=>"destroy", :controller=>"communities"}
+                   about        /about(.:format)                {:action=>"about", :controller=>"page"}
+                    root        /                               {:controller=>"page", :action=>"home"}

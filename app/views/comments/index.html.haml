@@ -1,0 +1,33 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", comments_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_comment_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      Comments
+    .inner
+      %table.table
+        %tr
+          %th.first ID
+          %th
+            = t("activerecord.attributes.comment.content", :default => t("activerecord.labels.content", :default => "Content"))
+          %th= t("web-app-theme.created_at", :default => "Created at")
+          %th.last &nbsp;
+        - @comments.each do |comment|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = comment.id
+            %td
+              = link_to comment.content, comment_path(comment)
+            %td
+              = comment.created_at
+            %td.last
+              = link_to "#{t("web-app-theme.show", :default => "Show")}", comment_path(comment)
+              |
+              \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_comment_path(comment)} |
+              \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", comment_path(comment), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+      .actions-bar.wat-cf
+        .actions
+- content_for :sidebar, render(:partial => 'sidebar')

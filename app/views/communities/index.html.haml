@@ -1,0 +1,52 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", communities_path
+      - if user_signed_in?
+        %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_community_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      Communities
+    .inner
+      = form_tag communities_path, :method => 'get' do
+        %p
+          = link_to "Search", new_search_path
+      %table.table
+        %tr
+          %th.first
+            = t("activerecord.attributes.community.name",       :default => t("activerecord.labels.name", :default => "Name"))
+          %th
+            = t("activerecord.attributes.community.region",     :default => t("activerecord.labels.name", :default => "Region"))  
+          %th 
+            = t("activerecord.attributes.community.code",       :default => t("activerecord.labels.name", :default => "Community Code"))
+          %th 
+            = t("activerecord.attributes.community.race_type",  :default => t("activerecord.labels.name", :default => "Race type"))  
+          %th 
+            = t("activerecord.attributes.community.items_type", :default => t("activerecord.labels.name", :default => "Item type"))
+          %th
+            = t("activerecord.attributes.user.username",        :default => t("activerecord.labels.name", :default => "Username"))
+          %th= t("activerecord.attributes.user.username",        :default => t("activerecord.labels.name", :default => "# of members"))
+          %th.last &nbsp;
+        - @communities.each do |community|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = link_to community.name, community_path(community)  
+            %td
+              = community.region
+            %td
+              = community.code   
+            %td 
+              = community.race_type
+            %td
+              = community.items_type 
+            %td
+              - if !community.user.nil?
+                = community.user.username
+            %td
+              = community.members.count
+            %td.last
+      .actions-bar.wat-cf
+        .actions
+        = will_paginate @communities
+- content_for :sidebar, render(:partial => 'sidebar')

@@ -1,0 +1,10 @@
+  
+- if devise_mapping.registerable? && controller_name != 'registrations'
+  = link_to "Sign up", new_registration_path(resource_name)
+  %br
+                      
+- if devise_mapping.omniauthable?   
+  Login with
+  - resource_class.omniauth_providers.each do |provider|              
+    = link_to image_tag("#{provider.to_s}.png"), omniauth_authorize_path(resource_name, provider)
+    %br

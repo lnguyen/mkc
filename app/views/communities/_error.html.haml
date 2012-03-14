@@ -1,0 +1,6 @@
+- if @community.errors.any?
+  .flash              
+    - @community.errors.messages.each do |type, message|
+      - message.each do |msg| 
+        %div{:class => "message error"}
+          %p=  Community.human_attribute_name(type) + " " + msg

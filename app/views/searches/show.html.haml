@@ -1,0 +1,39 @@
+%h1
+  Search Results               
+
+%table.table
+  %tr
+    %th.first ID
+    %th
+      = t("activerecord.attributes.community.name",       :default => t("activerecord.labels.name", :default => "Name"))
+    %th
+      = t("activerecord.attributes.community.region",     :default => t("activerecord.labels.name", :default => "Region"))  
+    %th 
+      = t("activerecord.attributes.community.code",       :default => t("activerecord.labels.name", :default => "Community Code"))
+    %th 
+      = t("activerecord.attributes.community.race_type",  :default => t("activerecord.labels.name", :default => "Race type"))  
+    %th 
+      = t("activerecord.attributes.community.items_type", :default => t("activerecord.labels.name", :default => "Item type"))  
+    %th
+      = t("activerecord.attributes.user.username",        :default => t("activerecord.labels.name", :default => "Username")) 
+    %th= t("web-app-theme.created_at", :default => "Created at")
+    %th.last &nbsp;      
+  - @search.communities.each do |community| 
+    %tr{:class => cycle("odd", "even")}
+      %td
+        = community.id
+      %td
+        = link_to community.name, community_path(community)  
+      %td
+        = community.region
+      %td
+        = community.code   
+      %td 
+        = community.race_type
+      %td
+        = community.items_type  
+      %td
+        - user_signed_in?
+          = community.user.username 
+      %td
+        = community.created_at      

@@ -1,0 +1,20 @@
+%h1
+  Advanced Search
+
+= form_for @search do |f|
+  .group
+    = f.label :name, t("activerecord.attributes.community.name", :default => "Name"), :class => :label
+    = f.text_field :name, :class => 'text_field'
+  .group
+    = f.label :region, t("activerecord.attributes.community.region", :default => "Region"), :class => :label
+    = f.select :region, ["NA","EUR","ASIA","JP"], :include_blank => true
+  .group
+    = f.label :race_type, t("activerecord.attributes.community.race_type", :default => "Race type"), :class => :label
+    = f.select :race_type, ["50cc", "100cc", "150cc", "Balloon Battle", "Coin Runner"], :include_blank => true  
+  .group
+    = f.label :item_type, t("activerecord.attributes.community.items_type", :default => "Items type"), :class => :label
+    = f.select :item_type, ["All Items", "Coins Only", "Bananas Only", "Mushrooms Only", "Bob-ombs Only", "No Item"], :include_blank => true   
+  .group.navform.wat-cf
+    %button.button{:type => "submit"}
+      = image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}")
+      = t("web-app-theme.save", :default => "Save")
